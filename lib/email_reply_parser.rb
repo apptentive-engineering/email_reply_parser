@@ -127,7 +127,54 @@ class EmailReplyParser
 
   private
     EMPTY = "".freeze
-    SIG_REGEX = /(--|__|\w-$)|(^(\w+\s*){1,3} #{"Sent from my".reverse}$)/n
+
+    # Line optionally starts with spaces, contains two or more hyphens or underscores, and ends with optional whitespace. Example: '---' or '___' or '---   '
+    MULTI_LINE_SIGNATURE_REGEX = /^\s*[-_]{2,}\s*$/
+
+    # Word character followed by hyphen, ending the line with optional spaces. Example: '-Sandro'
+    ONE_LINE_SIGNATURE_REGEX = /(\w-)\s*$/
+
+    # No block-quotes (> or <), followed by up to three words, follwed by "Sent from my". Example: "Sent from my iPhone 3G"
+    SENT_FROM_REGEX = /(^(>.*<\s*)*(\w+\s*){1,3} #{"Sent from my".reverse}$)/
+
+    SIGNATURE_REGEX = Regexp.new(Regexp.union(MULTI_LINE_SIGNATURE_REGEX, ONE_LINE_SIGNATURE_REGEX, SENT_FROM_REGEX).source, Regexp::NOENCODING)
+
+
+    # Detects if a given line is a common reply header.
+    #
+    # line - A String line of text from the email.
+    #
+    # Returns true if the line is a valid header, or false.
+    def line_is_reply_header?(line)
+      COMMON_REPLY_HEADER_REGEXES_REVERSED.each do |regex|
+        return true if line =~ regex
+      end
+      false
+    end
+
+    # Tests the full text of the email to see if it contains a common reply
+    # header. If so, removes any newlines and leading whitespace from the reply
+    # header.
+    #
+    # text - A String email body.
+    #
+    # Returns nothing.
+    def oneline_reply_headers(text)
+      COMMON_REPLY_HEADER_REGEXES.each do |regex|
+        if text =~ regex
+          text.gsub!($1, $1.gsub("\n", " ").lstrip) and break
+        end
+      end
+    end
+
+    # Detects if a given line starts with a common signature indicator.
+    #
+    # line - A String line of text from the email.
+    #
+    # Returns true if the line starts with a common signature indicator.
+    def line_is_signature?(line)
+      line =~ SIGNATURE_REGEX
+    end
 
     ### Line-by-Line Parsing
 
@@ -139,7 +186,7 @@ class EmailReplyParser
     # Returns nothing.
     def scan_line(line)
       line.chomp!("\n")
-      line.lstrip! unless line =~ SIG_REGEX
+      line.lstrip! unless line_is_signature?(line)
 
       # We're looking for leading `>`'s to see if this line is part of a
       # quoted Fragment.
@@ -148,7 +195,7 @@ class EmailReplyParser
       # Mark the current Fragment as a signature if the current line is empty
       # and the Fragment starts with a common signature indicator.
       if @fragment && line == EMPTY
-        if @fragment.lines.last =~ SIG_REGEX
+        if line_is_signature?(@fragment.lines.last)
           @fragment.signature = true
           finish_fragment
         end
