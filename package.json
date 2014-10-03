@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/jutaz/repa/issues"
   },
-  "homepage": "https://github.com/jutaz/repa"
+  "homepage": "https://github.com/jutaz/repa",
+  "dependencies": {
+    "esrever": "^0.1.0"
+  }
 }
