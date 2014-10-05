@@ -3,6 +3,7 @@ var esrever = require('esrever');
 var sig_regex = /(--\s*$|__\s*$|\w-$)|(^(\w+\s*){1,3} ym morf tneS$)/mig;
 
 module.exports = function(text) {
+    text = text.toString();
     if (text.indexOf("\r\n") > -1) {
         text = text.replace("\r\n", "\n");
     }
