@@ -27,5 +27,9 @@
   "homepage": "https://github.com/jutaz/repa",
   "dependencies": {
     "esrever": "^0.1.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^1.21.4"
   }
 }
