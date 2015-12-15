@@ -1,7 +1,9 @@
 # Email Reply Parser
 
-[![Build Status](https://secure.travis-ci.org/lawrencepit/email_reply_parser.png?branch=master)](http://travis-ci.org/lawrencepit/email_reply_parser)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lawrencepit/email_reply_parser)
+[![Build Status](https://travis-ci.org/edufii/email_reply_parser.svg)](http://travis-ci.org/edufii/email_reply_parser)
+[![Code Climate](https://codeclimate.com/github/edufii/email_reply_parser/badges/gpa.svg)](https://codeclimate.com/github/edufii/email_reply_parser)
+[![Test Coverage](https://codeclimate.com/github/edufii/email_reply_parser/badges/coverage.svg)](https://codeclimate.com/github/edufii/email_reply_parser/coverage)
+[![Issue Count](https://codeclimate.com/github/edufii/email_reply_parser/badges/issue_count.svg)](https://codeclimate.com/github/edufii/email_reply_parser)
 [![Gem Version](https://fury-badge.herokuapp.com/rb/email_reply_parser.png)](http://badge.fury.io/rb/email_reply_parser)
 
 EmailReplyParser is a small library to parse plain text email content.
@@ -65,4 +67,3 @@ Not everyone follows this convention:
     **********************DISCLAIMER***********************************
     * Note: blah blah blah                                            *
     **********************DISCLAIMER***********************************
-

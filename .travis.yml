@@ -1,6 +1,9 @@
 rvm:
   - 1.8.7
   - 1.9.3
+  - 2.0.0
+  - 2.1.3
+  - 2.2.3
 branches:
   only:
     - master
@@ -8,3 +11,6 @@ notifications:
   email:
     on_success: change
     on_failure: always
+addons:
+  code_climate:
+    repo_token: a74667180202eb592f8a2085471a562b4bda72a25d15cfa5328a5cfc2caaeb8b
