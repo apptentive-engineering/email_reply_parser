@@ -1,0 +1,20 @@
+PATH
+  remote: .
+  specs:
+    email_reply_parser (0.6)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    power_assert (0.2.6)
+    rake (10.4.2)
+    test-unit (3.1.5)
+      power_assert
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  email_reply_parser!
+  rake
+  test-unit
