@@ -136,6 +136,9 @@ I am currently using the Java HTTP API.\n", reply.fragments[0].to_s
 
     reply = EmailReplyParser.parse_reply "On Fri, Feb 24, 2012 at 10:19 AM, <boris@example.com> wrote:\n\n> hello"
     assert_equal "", reply
+
+    reply = EmailReplyParser.parse_reply "2016-01-15 10:51 GMT+06:00 John Doe <john.doe@gexample.com>:\n\n> hello"
+    assert_equal "", reply
   end
 
   def test_deals_with_multiline_reply_headers
@@ -203,6 +206,10 @@ I am currently using the Java HTTP API.\n", reply.fragments[0].to_s
     body = IO.read EMAIL_FIXTURE_PATH.join("email_2_9.txt").to_s
     expected_body = "Hello"
     assert_equal expected_body, EmailReplyParser.parse_reply(body, "Rick Olson <rick.olson@example.com>")
+  end
+
+  def test_parse_out_sent_from_T_Mobile_4G_LTE_Device
+    assert_equal "Here is another email", visible_text(:email_T_Mobile_4G_LTE_Device)
   end
 
   def test_parse_out_sent_from_iPhone

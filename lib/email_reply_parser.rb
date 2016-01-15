@@ -128,6 +128,7 @@ class EmailReplyParser
     COMMON_REPLY_HEADER_REGEXES = [
       /^On(.+)wrote:$/nm,
       /\A\d{4}\/\d{1,2}\/\d{1,2}\s+.{1,80}\s<[^@]+@[^@]+>\Z/,
+      /\A\d{4}-\d{1,2}-\d{1,2}\s\d{2}:\d{2}\s+.{1,80}\s<[^@]+@[^@]+>:\Z/
     ]
 
     # Line optionally starts with whitespace, contains two or more hyphens or
