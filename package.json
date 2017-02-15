@@ -1,6 +1,6 @@
 {
   "name": "repa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Email reply parser",
   "main": "main.js",
   "directories": {

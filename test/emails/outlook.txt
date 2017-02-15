@@ -1,0 +1,36 @@
+Just give it one more try…
+
+John Doe
+Software Developer
+Other Company<http://www.othercompany.com/>- We're the Best! ®
++123-46-678-7283 /office/
+john.doe@othercompany.com<mailto:john.doe@othercompany.com>
+skype: john.doe
+
+From: Sally [mailto:no-reply@somecompany.com]
+Sent: Monday, February 13, 2017 7:24 PM
+To: John Doe <John.Doe@othercompany.com>
+Subject: Test
+
+[https://s3.amazonaws.com/some/link/somewhere/com_email_header_img.jpg]<http://mandrillapp.com/track/click/30840103/web-dev.somecompany.com?p=eyJzIjoiLTlMNk04STNRajVPSHNyZnE1NTlUb2hvay1zIiwidiI6MSwicCI6IntcInVcIjozMDg0MDEwMyxcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd2ViLWRldi5zbmFwYW5kc3R5bGUuY29tXFxcL1wiLFwiaWRcIjpcIjVkYWZhZDEzMDAyNzQ2OWI5NGJmZDVlYWM5ZTBiZGQyXCIsXCJ1cmxfaWRzXCI6W1wiYjlmMWUxMTBiODdjMmQzMDQ4NzM3MzYzMGEwNzMwMGU1M2NkMjA5ZVwiXX0ifQ>
+
+
+
+
+Test
+[https://s3.amazonaws.com/some/link/somewhere/sneak-peek_without_circle.jpg]
+
+[https://s3.amazonaws.com/com-prod-stg-290115/items/l_1702130523421575.JPG]
+
+Click here<http://mandrillapp.com/track/click/30840103/web-dev.somecompany.com?p=eyJzIjoiZkt4bGc1cW8wRTZrTGNzVnlWMTVtNFhHQUVFIiwidiI6MSwicCI6IntcInVcIjozMDg0MDEwMyxcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd2ViLWRldi5zbmFwYW5kc3R5bGUuY29tXFxcL3BhdmxvLW5ldGVzYVxcXC9jb2xsZWN0aW9uc1xcXC9ueHVvcThtMTY3XCIsXCJpZFwiOlwiNWRhZmFkMTMwMDI3NDY5Yjk0YmZkNWVhYzllMGJkZDJcIixcInVybF9pZHNcIjpbXCI3ODcyY2VjNzNkMjdjOTA3YWVlZjgzZTU3MWZlODJkZDMyN2YxZmEyXCJdfSJ9> to see more outfits
+
+
+Hi John Doe,
+
+Test
+
+
+[http://s3.amazonaws.com/some/link/somewhere/rule.png]somecompany.com<http://mandrillapp.com/track/click/30840103/web-dev.somecompany.com?p=eyJzIjoiVzEzOUZ4bjJxLVB1dWg4X0JBZjFVeDV6V1JFIiwidiI6MSwicCI6IntcInVcIjozMDg0MDEwMyxcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd2ViLWRldi5zbmFwYW5kc3R5bGUuY29tXCIsXCJpZFwiOlwiNWRhZmFkMTMwMDI3NDY5Yjk0YmZkNWVhYzllMGJkZDJcIixcInVybF9pZHNcIjpbXCJiOWYxZTExMGI4N2MyZDMwNDg3MzczNjMwYTA3MzAwZTUzY2QyMDllXCJdfSJ9>
+
+521 Wideway, Suite 12–136, NYC, 10013
+Copyright © 2015—2017 Some Company, All rights reserved.

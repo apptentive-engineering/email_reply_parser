@@ -7,12 +7,19 @@ module.exports = function(text) {
     if (text.indexOf("\r\n") > -1) {
         text = text.replace("\r\n", "\n");
     }
-    var match = text.match(/^(?!On.*On\s.+?wrote:)(On[\s\S]+?wrote:)$/mi);
+    var match = text.match(/^(?!On.*On\s.+?wrote:)(On\s[\s\S]+?wrote:)$/mi);
     if (match) {
         var item = match[0];
         var removed = text.split(item);
         item = item.replace(/\n/g, " ");
         text = removed[0] + item + removed[1];
+    } else {
+        match = text.match(/(From:[\s\S]+?Sent:[\s\S]+?To:[\s\S]+?Subject:[\s\S]+?)$/mi) ||
+            text.match(/(On\s[\s\S]+?wrote:)$/mi);
+
+        if (match) {
+            text = text.split(match[0])[0];
+        }
     }
     var multiline = text.match(/([^\n])(?=\n_{7}_+)$/m);
     if (multiline) {
@@ -31,7 +38,7 @@ module.exports = function(text) {
             line = line.trimLeft();
         }
 
-        var is_quoted = (/(>+?)/.test(line));
+        var is_quoted = (/([>|]+?)/.test(line));
         if (fragment && line === "") {
             if (sig_regex.test(fragment.lines[fragment.lines.length-1])) {
                 fragment.signature = true;
