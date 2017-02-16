@@ -7,18 +7,18 @@ module.exports = function(text) {
     if (text.indexOf("\r\n") > -1) {
         text = text.replace("\r\n", "\n");
     }
-    var match = text.match(/^(?!On.*On\s.+?wrote:)(On\s[\s\S]+?wrote:)$/mi);
+    var match = text.match(/(From:[\s\S]+?Sent:[\s\S]+?To:[\s\S]+?Subject:[\s\S]+?)$/m) ||
+        text.match(/(^[^\n]+On[^\n]+?wrote:$)/m);
     if (match) {
-        var item = match[0];
-        var removed = text.split(item);
-        item = item.replace(/\n/g, " ");
-        text = removed[0] + item + removed[1];
+        text = text.split(match[0])[0];
     } else {
-        match = text.match(/(From:[\s\S]+?Sent:[\s\S]+?To:[\s\S]+?Subject:[\s\S]+?)$/mi) ||
-            text.match(/(On\s[\s\S]+?wrote:)$/mi);
+        match = text.match(/^(?!On.*On\s.+?wrote:)(On\s[\s\S]+?wrote:)$/mi);
 
         if (match) {
-            text = text.split(match[0])[0];
+            var item = match[0];
+            var removed = text.split(item);
+            item = item.replace(/\n/g, " ");
+            text = removed[0] + item + removed[1];
         }
     }
     var multiline = text.match(/([^\n])(?=\n_{7}_+)$/m);
