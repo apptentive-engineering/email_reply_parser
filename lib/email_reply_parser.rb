@@ -30,7 +30,7 @@ require 'strscan'
 #
 # [mail]: https://github.com/mikel/mail
 class EmailReplyParser
-  VERSION = "0.5.3"
+  VERSION = "0.5.9"
 
   # Public: Splits an email body into a list of Fragments.
   #
@@ -76,18 +76,23 @@ class EmailReplyParser
     #
     # Returns this same Email instance.
     def read(text)
-      # in 1.9 we want to operate on the raw bytes
-      text = text.dup.force_encoding('binary') if text.respond_to?(:force_encoding)
+      text = text.dup
 
       # Normalize line endings.
       text.gsub!("\r\n", "\n")
 
       # Check for multi-line reply headers. Some clients break up
       # the "On DATE, NAME <EMAIL> wrote:" line into multiple lines.
-      if text =~ /^(On\s(.+)wrote:)$/nm
+      if text =~ /^(?!On.*On\s.+?wrote:)(On\s(.+?)wrote:)$/m
         # Remove all new lines from the reply header.
         text.gsub! $1, $1.gsub("\n", " ")
       end
+
+      # Some users may reply directly above a line of underscores.
+      # In order to ensure that these fragments are split correctly,
+      # make sure that all lines of underscores are preceded by
+      # at least two newline characters.
+      text.gsub!(/([^\n])(?=\n_{7}_+)$/m, "\\1\n")
 
       # The text is reversed initially due to the way we check for hidden
       # fragments.
@@ -104,7 +109,7 @@ class EmailReplyParser
 
       # Use the StringScanner to pull out each line of the email content.
       @scanner = StringScanner.new(text)
-      while line = @scanner.scan_until(/\n/n)
+      while line = @scanner.scan_until(/\n/)
         scan_line(line)
       end
 
@@ -127,8 +132,15 @@ class EmailReplyParser
 
   private
     EMPTY = "".freeze
+    SIGNATURE = '(?m)(--\s*$|__\s*$|\w-$)|(^(\w+\s*){1,3} ym morf tneS$)'
 
-    # Line optionally starts with spaces, contains two or more hyphens or underscores, and ends with optional whitespace. Example: '---' or '___' or '---   '
+    begin
+      require 're2'
+      SIG_REGEX = RE2::Regexp.new(SIGNATURE)
+    rescue LoadError
+      SIG_REGEX = Regexp.new(SIGNATURE)
+    end
+
     MULTI_LINE_SIGNATURE_REGEX = /^\s*[-_]{2,}\s*$/
 
     # Word character followed by hyphen, ending the line with optional spaces. Example: '-Sandro'
@@ -136,9 +148,6 @@ class EmailReplyParser
 
     # No block-quotes (> or <), followed by up to three words, follwed by "Sent from my". Example: "Sent from my iPhone 3G"
     SENT_FROM_REGEX = /(^(>.*<\s*)*(\w+\s*){1,3} #{"Sent from my".reverse}$)/
-
-    SIGNATURE_REGEX = Regexp.new(Regexp.union(MULTI_LINE_SIGNATURE_REGEX, ONE_LINE_SIGNATURE_REGEX, SENT_FROM_REGEX).source, Regexp::NOENCODING)
-
 
     # Detects if a given line is a common reply header.
     #
@@ -167,15 +176,6 @@ class EmailReplyParser
       end
     end
 
-    # Detects if a given line starts with a common signature indicator.
-    #
-    # line - A String line of text from the email.
-    #
-    # Returns true if the line starts with a common signature indicator.
-    def line_is_signature?(line)
-      line =~ SIGNATURE_REGEX
-    end
-
     ### Line-by-Line Parsing
 
     # Scans the given line of text and figures out which fragment it belongs
@@ -186,16 +186,16 @@ class EmailReplyParser
     # Returns nothing.
     def scan_line(line)
       line.chomp!("\n")
-      line.lstrip! unless line_is_signature?(line)
+      line.lstrip! unless SIG_REGEX.match(line)
 
       # We're looking for leading `>`'s to see if this line is part of a
       # quoted Fragment.
-      is_quoted = !!(line =~ /(>+)$/n)
+      is_quoted = !!(line =~ /(>+)$/)
 
       # Mark the current Fragment as a signature if the current line is empty
       # and the Fragment starts with a common signature indicator.
       if @fragment && line == EMPTY
-        if line_is_signature?(@fragment.lines.last)
+        if SIG_REGEX.match @fragment.lines.last
           @fragment.signature = true
           finish_fragment
         end
@@ -223,7 +223,7 @@ class EmailReplyParser
     #
     # Returns true if the line is a valid header, or false.
     def quote_header?(line)
-      line =~ /^:etorw.*nO$/n
+      line =~ /^:etorw.*nO$/
     end
 
     # Builds the fragment string and reverses it, after all lines have been
@@ -309,4 +309,3 @@ class EmailReplyParser
     end
   end
 end
-
