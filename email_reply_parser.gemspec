@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.specification_version = 2 if s.respond_to? :specification_version=
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.5'
+  s.license = 'MIT'
 
   ## Leave these as is they will be modified for you by the rake gemspec task.
   ## If your rubyforge_project name is different, then edit it and comment out
@@ -67,6 +68,8 @@ Gem::Specification.new do |s|
     Rakefile
     email_reply_parser.gemspec
     lib/email_reply_parser.rb
+    script/release
+    script/test
     test/email_reply_parser_test.rb
     test/emails/correct_sig.txt
     test/emails/email_1_1.txt
@@ -75,12 +78,19 @@ Gem::Specification.new do |s|
     test/emails/email_1_4.txt
     test/emails/email_1_5.txt
     test/emails/email_1_6.txt
+    test/emails/email_1_7.txt
+    test/emails/email_1_8.txt
     test/emails/email_2_1.txt
+    test/emails/email_2_2.txt
     test/emails/email_BlackBerry.txt
     test/emails/email_bullets.txt
     test/emails/email_iPhone.txt
     test/emails/email_multi_word_sent_from_my_mobile_device.txt
+    test/emails/email_one_is_not_on.txt
     test/emails/email_sent_from_my_not_signature.txt
+    test/emails/email_sig_delimiter_in_middle_of_line.txt
+    test/emails/greedy_on.txt
+    test/emails/pathological.txt
   ]
   # = MANIFEST =
 
